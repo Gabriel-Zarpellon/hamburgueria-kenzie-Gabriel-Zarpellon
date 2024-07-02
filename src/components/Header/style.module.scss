@@ -1,0 +1,33 @@
+header {
+  background-color: var(--background-grey-color);
+}
+
+.headerBox {
+  width: 100%;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 0.6875rem;
+
+  button {
+    background-color: transparent;
+    background-image: url("../../assets/Cart.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 1.5625rem;
+    width: 1.5625rem;
+    position: relative;
+  }
+
+  span {
+    position: absolute;
+    top: -14px;
+    right: -12px;
+    background-color: var(--primary-color);
+    padding: 4px 5px;
+    border-radius: 0.4375rem;
+    color: var(--white-color);
+    font-weight: 900;
+  }
+}

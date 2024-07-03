@@ -9,7 +9,11 @@ export const HomePage = () => {
   const [productList, setProductList] = useState(
     localProductList ? JSON.parse(localProductList) : []
   );
-  const [cartList, setCartList] = useState([]);
+
+  const localCartList = localStorage.getItem("@CARTLIST");
+  const [cartList, setCartList] = useState(
+    localCartList ? JSON.parse(localCartList) : []
+  );
   const [loading, setLoading] = useState(false);
   const [counter, setCounter] = useState(
     cartList.length > 0 ? cartList.length : 0
@@ -38,6 +42,10 @@ export const HomePage = () => {
     localStorage.setItem("@PRODUCTLIST", JSON.stringify(productList));
   }, [productList]);
 
+  useEffect(() => {
+    localStorage.setItem("@CARTLIST", JSON.stringify(cartList));
+  }, [cartList]);
+
   // adição, exclusão, e exclusão geral do carrinho
   function addProduct(product) {
     let newCartList = [...cartList, product];
@@ -51,9 +59,13 @@ export const HomePage = () => {
     addCounter();
   }, [cartList]);
 
+  function removeProduct(removeId) {
+    let newCartList = cartList.filter((product) => product.id != removeId);
+    setCartList(newCartList);
+  }
+
   // renderizações condições e o estado para exibir ou não o carrinho
   // estilizar tudo com sass de forma responsiva
- 
 
   return (
     <PageTemplate counter={counter} setIsOpen={setIsOpen}>
@@ -62,7 +74,14 @@ export const HomePage = () => {
       ) : (
         <ProductList productList={productList} addProduct={addProduct} />
       )}
-      {isOpen ? <CartModal cartList={cartList} setIsOpen={setIsOpen}/> : null}
+      {isOpen ? (
+        <CartModal
+          cartList={cartList}
+          setIsOpen={setIsOpen}
+          removeProduct={removeProduct}
+          setCartList={setCartList}
+        />
+      ) : null}
     </PageTemplate>
   );
 };

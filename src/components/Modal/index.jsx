@@ -1,10 +1,22 @@
 import { MdClose } from "react-icons/md";
 import styles from "./style.module.scss";
+import { useOutclick } from "../../hooks/useOutclick";
+import { useKeyDown } from "../../hooks/useKeydown";
 
 export function Modal({ children, setIsOpen, total, setCartList }) {
+  
+  let modalRef = useOutclick(() =>{
+    setIsOpen(false);
+  });
+
+  useKeyDown("Escape", () =>{
+    setIsOpen(false);
+  });
+  
+  
   return (
     <div role="dialog" className={styles.modalOverlay}>
-      <div className={styles.modalBox}>
+      <div ref={modalRef} className={styles.modalBox}>
         <div className={styles.modalHeader}>
           <h1 className="title white">Carrinho de compras</h1>
           <button aria-label="close" title="Fechar" onClick={() => {setIsOpen(false);}}>

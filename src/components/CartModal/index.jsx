@@ -1,7 +1,7 @@
 import { CartItemCard } from "./CartItemCard";
 import { Modal } from "../Modal";
 import styles from "./style.module.scss";
-import { MdDelete } from "react-icons/md";
+
 
 export const CartModal = ({ cartList, setIsOpen }) => {
   const total = cartList.reduce((prevValue, product) => {
@@ -20,10 +20,8 @@ export const CartModal = ({ cartList, setIsOpen }) => {
         <MdDelete size={21} />
       </button>
     </li> */}
-        <li>
-          
-        </li>
-        {/* {cartList.length <= 0 ? (
+        
+        {cartList.length <= 0 ? (
           <div className={styles.emptyCart}>
             <p className="paragraph dark">Seu carrinho está vazio.</p>
           </div>
@@ -31,7 +29,7 @@ export const CartModal = ({ cartList, setIsOpen }) => {
           cartList.map((product) => (
             <CartItemCard key={product.id} product={product} />
           ))
-        )} */}
+        )}
       </ul>
     </Modal>
   );

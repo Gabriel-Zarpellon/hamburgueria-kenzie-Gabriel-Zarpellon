@@ -1,7 +1,7 @@
 import { MdDelete } from "react-icons/md";
 import styles from "./style.module.scss";
 
-export function CartItemCard({ product }) {
+export function CartItemCard({ product, removeProduct }) {
   return (
     <li className={styles.cartItem}>
       <div className={styles.imgContainer}>
@@ -9,10 +9,19 @@ export function CartItemCard({ product }) {
       </div>
       <div>
         <h1 className="title">{product.name}</h1>
-        <p className="paragraph green">{product.price.toLocaleString('pt-BR', { style: "currency", currency: "BRL"})}</p>
+        <p className="paragraph green">
+          {product.price.toLocaleString("pt-BR", {style: "currency", currency: "BRL"})}
+        </p>
       </div>
       <div>
-        <button aria-label="delete" title="Remover item">
+        <button
+          aria-label="delete"
+          title="Remover item"
+          onClick={(e) => {
+            e.preventDefault();
+            removeProduct(product.id);
+          }}
+        >
           <MdDelete size={21} />
         </button>
       </div>

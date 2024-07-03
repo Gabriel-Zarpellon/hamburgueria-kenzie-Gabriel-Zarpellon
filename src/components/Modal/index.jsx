@@ -1,7 +1,7 @@
 import { MdClose } from "react-icons/md";
 import styles from "./style.module.scss";
 
-export function Modal({ children, setIsOpen, total }) {
+export function Modal({ children, setIsOpen, total, setCartList }) {
   return (
     <div role="dialog" className={styles.modalOverlay}>
       <div className={styles.modalBox}>
@@ -19,7 +19,7 @@ export function Modal({ children, setIsOpen, total }) {
               {total.toLocaleString("pt-BR", {style: "currency", currency: "BRL",})}
             </p>
           </div>
-          <button className="btn cart">Remover todos</button>
+          <button className="btn cart" onClick={() => {setCartList([])}}>Remover todos</button>
         </div>
       </div>
     </div>

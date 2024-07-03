@@ -23,7 +23,6 @@
       align-items: center;
       justify-content: center;
       background-color: var(--background-grey-color);
-      
     }
 
     & > div:last-child {
@@ -42,7 +41,7 @@
       color: var(--white-color);
       border-radius: 0.5rem;
     }
-    img{
+    img {
       max-height: 100%;
     }
   }
@@ -56,10 +55,10 @@
   }
 }
 
-@media (min-width: 690px){
-    .productList{
-      overflow: visible;
-        flex-wrap: wrap;
-        gap: 3.5rem;
-    }
+@media (min-width: 690px) {
+  .productList {
+    overflow: visible;
+    flex-wrap: wrap;
+    gap: 3.5rem;
+  }
 }

@@ -14,14 +14,7 @@ export function CartItemCard({ product, removeProduct }) {
         </p>
       </div>
       <div>
-        <button
-          aria-label="delete"
-          title="Remover item"
-          onClick={(e) => {
-            e.preventDefault();
-            removeProduct(product.key);
-          }}
-        >
+        <button aria-label="delete" title="Remover item" onClick={() => {removeProduct(product.key);}}>
           <MdDelete size={21} />
         </button>
       </div>

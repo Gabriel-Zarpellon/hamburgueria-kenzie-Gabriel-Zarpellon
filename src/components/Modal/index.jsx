@@ -4,16 +4,14 @@ import { useOutclick } from "../../hooks/useOutclick";
 import { useKeyDown } from "../../hooks/useKeydown";
 
 export function Modal({ children, setIsOpen, total, setCartList }) {
-  
-  let modalRef = useOutclick(() =>{
+  let modalRef = useOutclick(() => {
     setIsOpen(false);
   });
 
-  useKeyDown("Escape", () =>{
+  useKeyDown("Escape", () => {
     setIsOpen(false);
   });
-  
-  
+
   return (
     <div role="dialog" className={styles.modalOverlay}>
       <div ref={modalRef} className={styles.modalBox}>
@@ -28,10 +26,12 @@ export function Modal({ children, setIsOpen, total, setCartList }) {
           <div className={styles.totalBox}>
             <p className="paragraph dark">Total</p>
             <p className="paragraph">
-              {total.toLocaleString("pt-BR", {style: "currency", currency: "BRL",})}
+              {total.toLocaleString("pt-BR", {style: "currency", currency: "BRL"})}
             </p>
           </div>
-          <button className="btn cart" onClick={() => {setCartList([])}}>Remover todos</button>
+          <button className="btn cart" onClick={() => {setCartList([]);}}>
+            Remover todos
+          </button>
         </div>
       </div>
     </div>

@@ -1,20 +1,20 @@
 import { useEffect, useRef } from "react";
 
-export function useKeyDown(keyId, callback){
-    let ref = useRef(null);
+export function useKeyDown(keyId, callback) {
+  let ref = useRef(null);
 
-    useEffect(()=>{
-        function handleKeydown(event){
-            if (event.key == keyId){
-                callback(ref.current);
-            }
-        }
+  useEffect(() => {
+    function handleKeydown(event) {
+      if (event.key == keyId) {
+        callback(ref.current);
+      }
+    }
 
-        window.addEventListener("keydown", handleKeydown);
-        return () =>{
-            window.removeEventListener("keydown", handleKeydown);
-        }
-    }, []);
+    window.addEventListener("keydown", handleKeydown);
+    return () => {
+      window.removeEventListener("keydown", handleKeydown);
+    };
+  }, []);
 
-    return ref;
+  return ref;
 }

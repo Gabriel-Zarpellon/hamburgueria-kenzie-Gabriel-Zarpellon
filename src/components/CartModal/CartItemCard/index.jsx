@@ -19,7 +19,7 @@ export function CartItemCard({ product, removeProduct }) {
           title="Remover item"
           onClick={(e) => {
             e.preventDefault();
-            removeProduct(product.id);
+            removeProduct(product.key);
           }}
         >
           <MdDelete size={21} />

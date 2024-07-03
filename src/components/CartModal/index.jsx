@@ -17,7 +17,7 @@ export const CartModal = ({ cartList, setIsOpen, removeProduct, setCartList }) =
           </div>
         ) : (
           cartList.map((product) => (
-            <CartItemCard key={product.id} product={product} removeProduct={removeProduct}/>
+            <CartItemCard key={product.key} product={product} removeProduct={removeProduct}/>
           ))
         )}
       </ul>

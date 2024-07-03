@@ -48,7 +48,7 @@ export const HomePage = () => {
 
   // adição, exclusão, e exclusão geral do carrinho
   function addProduct(product) {
-    let newCartList = [...cartList, product];
+    let newCartList = [...cartList, {...product, key: crypto.randomUUID()}];
     setCartList(newCartList);
   }
 
@@ -59,8 +59,9 @@ export const HomePage = () => {
     addCounter();
   }, [cartList]);
 
-  function removeProduct(removeId) {
-    let newCartList = cartList.filter((product) => product.id != removeId);
+  function removeProduct(removeKey) {
+    let removeIndex = cartList.findIndex(product => product.key == removeKey);
+    let newCartList = cartList.filter((product, index) => index != removeIndex);
     setCartList(newCartList);
   }
 

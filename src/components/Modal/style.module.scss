@@ -44,7 +44,8 @@
   padding: 0.875rem;
 
   button {
-    width: clamp(23rem, 5vw, 28.375rem);
+    width: 100%;
+    max-width: 454px;
     height: 3.75rem;
     background-color: var(--button-color);
     color: var(--white-color);

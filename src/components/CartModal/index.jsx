@@ -9,7 +9,7 @@ export const CartModal = ({ cartList, setIsOpen, removeProduct, setCartList }) =
   }, 0);
 
   return (
-    <Modal setIsOpen={setIsOpen} total={total} setCartList={setCartList}>
+    <Modal setIsOpen={setIsOpen} total={total} setCartList={setCartList} >
       <ul>
         {cartList.length <= 0 ? (
           <div className={styles.emptyCart}>

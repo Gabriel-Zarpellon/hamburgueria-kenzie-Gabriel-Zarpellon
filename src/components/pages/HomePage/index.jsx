@@ -3,19 +3,29 @@ import { CartModal } from "../../CartModal";
 import { ProductList } from "../../ProductList";
 import { api } from "../../../services/api.js";
 import { PageTemplate } from "../../templates/PageTemplate";
+import React from "react";
+import { ToastContainer, toast } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
 
 export const HomePage = () => {
   const localProductList = localStorage.getItem("@PRODUCTLIST");
-  const [productList, setProductList] = useState(localProductList ? JSON.parse(localProductList) : []);
+  const [productList, setProductList] = useState(
+    localProductList ? JSON.parse(localProductList) : []
+  );
 
   const localCartList = localStorage.getItem("@CARTLIST");
-  const [cartList, setCartList] = useState(localCartList ? JSON.parse(localCartList) : []);
-  
+  const [cartList, setCartList] = useState(
+    localCartList ? JSON.parse(localCartList) : []
+  );
   const [loading, setLoading] = useState(false);
-  const [counter, setCounter] = useState(cartList.length > 0 ? cartList.length : 0);
+  const [counter, setCounter] = useState(
+    cartList.length > 0 ? cartList.length : 0
+  );
   const [isOpen, setIsOpen] = useState(false);
 
-  
+  const [productCount, setProductCount] = useState(1);
+
   useEffect(() => {
     async function getProducts() {
       try {
@@ -31,7 +41,6 @@ export const HomePage = () => {
     getProducts();
   }, []);
 
-
   useEffect(() => {
     localStorage.setItem("@PRODUCTLIST", JSON.stringify(productList));
   }, [productList]);
@@ -40,10 +49,22 @@ export const HomePage = () => {
     localStorage.setItem("@CARTLIST", JSON.stringify(cartList));
   }, [cartList]);
 
-
   function addProduct(product) {
-    let newCartList = [...cartList, { ...product, key: crypto.randomUUID() }];
-    setCartList(newCartList);
+    let newCartList = [];
+    if (cartList.length > 0) {
+      cartList.forEach((element) => {
+        if (element.id == product.id) {
+          notify(element.name);
+          setCartList(cartList);
+        } else {
+          newCartList = [...cartList, {...product, key: crypto.randomUUID()}];
+          setCartList(newCartList);
+        }
+      });
+    } else {
+      newCartList = [...cartList, product];
+      setCartList(newCartList);
+    }
   }
 
   useEffect(() => {
@@ -53,14 +74,17 @@ export const HomePage = () => {
     addCounter();
   }, [cartList]);
 
-  function removeProduct(removeKey) {
-    let removeIndex = cartList.findIndex((product) => product.key == removeKey);
-    let newCartList = cartList.filter((product, index) => index != removeIndex);
+  function removeProduct(removeId) {
+    let newCartList = cartList.filter((product) => product.id != removeId);
     setCartList(newCartList);
   }
 
+  function notify(elementName) {
+    toast.warn(`O item ${elementName} já foi adicionado ao carrinho!`, { });
+  }
   return (
     <PageTemplate counter={counter} setIsOpen={setIsOpen}>
+      <ToastContainer position="top-center" autoClose={3000} closeOnClick/>
       {loading ? (
         <h1 className="title">Carregando produtos...</h1>
       ) : (

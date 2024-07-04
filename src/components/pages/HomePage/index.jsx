@@ -24,7 +24,8 @@ export const HomePage = () => {
   const[search, setSearch] = useState("");
 
 
-  console.log(search);
+  const searchResult = productList.filter(product => product.name.toLowerCase().includes(search.toLowerCase()));
+
 
   useEffect(() => {
     async function getProducts() {
@@ -102,7 +103,7 @@ export const HomePage = () => {
       {loading ? (
         <h1 className="title">Carregando produtos...</h1>
       ) : (
-        <ProductList productList={productList} addProduct={addProduct} />
+        <ProductList productList={searchResult} addProduct={addProduct} search={search}/>
       )}
       {isOpen ? (
         <CartModal

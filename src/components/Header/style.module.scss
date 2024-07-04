@@ -60,10 +60,13 @@ header {
     height: 40px;
     border-radius: 0.5rem;
     padding-left: 0.625rem;
-    
+
+    &:focus {
+      outline: 1px solid var(--primary-color);
+    }
   }
 
-  .inputButtonBig{
+  .inputButtonBig {
     color: var(--button-color);
     position: absolute;
     top: 10px;
@@ -78,7 +81,6 @@ header {
   align-items: center;
   justify-content: center;
   position: relative;
-  
 
   input {
     background-color: var(--white-color);
@@ -86,14 +88,13 @@ header {
     height: 30px;
     border-radius: 0.25rem;
     padding-left: 0.625rem;
-    
 
     &:focus {
       outline: 1px solid var(--primary-color);
     }
   }
 
-  .inputButtonSmall{
+  .inputButtonSmall {
     color: var(--button-color);
     position: absolute;
     right: 5px;

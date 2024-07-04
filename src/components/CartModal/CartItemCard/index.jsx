@@ -9,6 +9,7 @@ export function CartItemCard({ product, removeProduct }) {
       </div>
       <div>
         <h1 className="title">{product.name}</h1>
+        <p className="paragraph">x{product.qtd}</p>
         <p className="paragraph green">
           {product.price.toLocaleString("pt-BR", {style: "currency", currency: "BRL"})}
         </p>

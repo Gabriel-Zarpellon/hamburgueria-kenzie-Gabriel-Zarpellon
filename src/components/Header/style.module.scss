@@ -10,7 +10,15 @@ header {
   justify-content: space-between;
   padding-right: 0.6875rem;
 
-  button {
+  & > div:first-child {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 1.875rem;
+  }
+
+  .cartButton {
     background-color: transparent;
     background-image: url("../../assets/Cart.svg");
     background-repeat: no-repeat;
@@ -29,5 +37,75 @@ header {
     border-radius: 0.4375rem;
     color: var(--white-color);
     font-weight: 900;
+  }
+}
+
+.logoContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.inputContainerBig {
+  display: none;
+  width: 100%;
+  justify-content: end;
+  position: relative;
+
+  input {
+    background-color: var(--white-color);
+    width: 100%;
+    max-width: 300px;
+    height: 40px;
+    border-radius: 0.5rem;
+    padding-left: 0.625rem;
+    
+  }
+
+  .inputButtonBig{
+    color: var(--button-color);
+    position: absolute;
+    top: 10px;
+    right: 5px;
+  }
+}
+
+.inputContainerSmall {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  
+
+  input {
+    background-color: var(--white-color);
+    width: 100%;
+    height: 30px;
+    border-radius: 0.25rem;
+    padding-left: 0.625rem;
+    
+
+    &:focus {
+      outline: 1px solid var(--primary-color);
+    }
+  }
+
+  .inputButtonSmall{
+    color: var(--button-color);
+    position: absolute;
+    right: 5px;
+  }
+}
+
+@media (min-width: 580px) {
+  .inputContainerSmall {
+    display: none;
+  }
+
+  .inputContainerBig {
+    display: flex;
   }
 }

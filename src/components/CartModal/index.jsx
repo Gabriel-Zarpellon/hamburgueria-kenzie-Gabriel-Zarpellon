@@ -5,7 +5,7 @@ import styles from "./style.module.scss";
 
 export const CartModal = ({ cartList, setIsOpen, removeProduct, setCartList }) => {
   const total = cartList.reduce((prevValue, product) => {
-    return prevValue + product.price;
+    return prevValue + (product.price * product.qtd);
   }, 0);
 
   return (

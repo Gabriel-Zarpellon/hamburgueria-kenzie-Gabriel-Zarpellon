@@ -4,9 +4,6 @@ import { ProductList } from "../../ProductList";
 import { api } from "../../../services/api.js";
 import { PageTemplate } from "../../templates/PageTemplate";
 import React from "react";
-import { ToastContainer, toast } from "react-toastify";
-
-import "react-toastify/dist/ReactToastify.css";
 
 export const HomePage = () => {
   const localProductList = localStorage.getItem("@PRODUCTLIST");
@@ -24,7 +21,10 @@ export const HomePage = () => {
   );
   const [isOpen, setIsOpen] = useState(false);
 
-  const [productCount, setProductCount] = useState(1);
+  const[search, setSearch] = useState("");
+
+
+  console.log(search);
 
   useEffect(() => {
     async function getProducts() {
@@ -49,22 +49,24 @@ export const HomePage = () => {
     localStorage.setItem("@CARTLIST", JSON.stringify(cartList));
   }, [cartList]);
 
+  // function addProduct(product) {
+  //   let newCartList = [...cartList, { ...product, key: crypto.randomUUID() }];
+  //   setCartList(newCartList);
+  // }
+
   function addProduct(product) {
     let newCartList = [];
-    if (cartList.length > 0) {
-      cartList.forEach((element) => {
-        if (element.id == product.id) {
-          notify(element.name);
-          setCartList(cartList);
-        } else {
-          newCartList = [...cartList, {...product, key: crypto.randomUUID()}];
-          setCartList(newCartList);
-        }
-      });
+
+    let addIndex = cartList.findIndex((element) => element.id == product.id);
+    console.log(addIndex);
+
+    if (addIndex != -1) {
+      newCartList = cartList.map((element, index) => index == addIndex ? { ...element, qtd: element.qtd + 1 } : element);
     } else {
-      newCartList = [...cartList, product];
-      setCartList(newCartList);
+      newCartList = [...cartList, { ...product, qtd: 1 }];
     }
+
+    setCartList(newCartList);
   }
 
   useEffect(() => {
@@ -74,17 +76,29 @@ export const HomePage = () => {
     addCounter();
   }, [cartList]);
 
+  // function removeProduct(removeId) {
+  //   let newCartList = cartList.filter((product) => product.id != removeId);
+  //   setCartList(newCartList);
+  // }
+
   function removeProduct(removeId) {
-    let newCartList = cartList.filter((product) => product.id != removeId);
+    let newCartList = [];
+    let removeIndex = cartList.findIndex((product) => product.id == removeId);
+
+    if (cartList[removeIndex].qtd > 1) {
+      newCartList = cartList.map((product, index) =>
+        index == removeIndex ? { ...product, qtd: product.qtd - 1 } : product
+      );
+    } else {
+      newCartList = cartList.filter((product, index) => index != removeIndex);
+    }
+
     setCartList(newCartList);
   }
 
-  function notify(elementName) {
-    toast.warn(`O item ${elementName} já foi adicionado ao carrinho!`, { });
-  }
   return (
-    <PageTemplate counter={counter} setIsOpen={setIsOpen}>
-      <ToastContainer position="top-center" autoClose={3000} closeOnClick/>
+    <PageTemplate counter={counter} setIsOpen={setIsOpen} setSearch={setSearch}>
+      
       {loading ? (
         <h1 className="title">Carregando produtos...</h1>
       ) : (

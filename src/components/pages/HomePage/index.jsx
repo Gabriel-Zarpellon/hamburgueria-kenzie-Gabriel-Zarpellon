@@ -7,25 +7,18 @@ import React from "react";
 
 export const HomePage = () => {
   const localProductList = localStorage.getItem("@PRODUCTLIST");
-  const [productList, setProductList] = useState(
-    localProductList ? JSON.parse(localProductList) : []
-  );
+  const [productList, setProductList] = useState(localProductList ? JSON.parse(localProductList) : []);
 
   const localCartList = localStorage.getItem("@CARTLIST");
-  const [cartList, setCartList] = useState(
-    localCartList ? JSON.parse(localCartList) : []
-  );
+  const [cartList, setCartList] = useState(localCartList ? JSON.parse(localCartList) : []);
+
   const [loading, setLoading] = useState(false);
-  const [counter, setCounter] = useState(
-    cartList.length > 0 ? cartList.length : 0
-  );
+  const [counter, setCounter] = useState(cartList.length > 0 ? cartList.length : 0);
   const [isOpen, setIsOpen] = useState(false);
+  const [search, setSearch] = useState("");
 
-  const[search, setSearch] = useState("");
-
-
-  const searchResult = productList.filter(product => product.name.toLowerCase().includes(search.toLowerCase()));
-
+  const searchResult = productList.filter((product) =>
+    product.name.toLowerCase().includes(search.toLowerCase()));
 
   useEffect(() => {
     async function getProducts() {
@@ -50,23 +43,18 @@ export const HomePage = () => {
     localStorage.setItem("@CARTLIST", JSON.stringify(cartList));
   }, [cartList]);
 
-  // function addProduct(product) {
-  //   let newCartList = [...cartList, { ...product, key: crypto.randomUUID() }];
-  //   setCartList(newCartList);
-  // }
-
   function addProduct(product) {
     let newCartList = [];
 
     let addIndex = cartList.findIndex((element) => element.id == product.id);
-    console.log(addIndex);
 
     if (addIndex != -1) {
-      newCartList = cartList.map((element, index) => index == addIndex ? { ...element, qtd: element.qtd + 1 } : element);
+      newCartList = cartList.map((element, index) =>
+        index == addIndex ? { ...element, qtd: element.qtd + 1 } : element
+      );
     } else {
       newCartList = [...cartList, { ...product, qtd: 1 }];
     }
-
     setCartList(newCartList);
   }
 
@@ -76,11 +64,6 @@ export const HomePage = () => {
     }
     addCounter();
   }, [cartList]);
-
-  // function removeProduct(removeId) {
-  //   let newCartList = cartList.filter((product) => product.id != removeId);
-  //   setCartList(newCartList);
-  // }
 
   function removeProduct(removeId) {
     let newCartList = [];
@@ -99,11 +82,14 @@ export const HomePage = () => {
 
   return (
     <PageTemplate counter={counter} setIsOpen={setIsOpen} setSearch={setSearch}>
-      
       {loading ? (
         <h1 className="title">Carregando produtos...</h1>
       ) : (
-        <ProductList productList={searchResult} addProduct={addProduct} search={search}/>
+        <ProductList
+          productList={searchResult}
+          addProduct={addProduct}
+          search={search}
+        />
       )}
       {isOpen ? (
         <CartModal
